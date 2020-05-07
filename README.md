@@ -22,3 +22,19 @@ A web application to migrate data from various sources (i.e. files, DBs, APIs) a
 
 - Save to PDF
 - Export to XLSX
+
+## Classes
+- Tables - what data sources are converted into and what is exported from nodes
+- Nodes
+  - Filter Node (filter out data from tables with matching criteria)
+  - Relate Node (join different tables)
+  - Transform Node (mutate data structures)
+  - Graph Node (map table data to fit what is needed for a graph)
+- Graph - takes in a Graph Nodes return value then returns a graph element
+
+## Application Independent Rules (Use Cases)
+- Create Tables from file
+- Create Filter Node
+- Create Relate Node
+- Create Transform Node
+- Create Graph Node 
