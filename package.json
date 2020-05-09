@@ -1,0 +1,26 @@
+{
+  "name": "dmein",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A web application to migrate data from various sources (i.e. files, DBs, APIs) and create visual reports on them.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "tests": "node ./tests/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshuashoemaker/dmein.git"
+  },
+  "author": "Joshua Shoemaker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joshuashoemaker/dmein/issues"
+  },
+  "homepage": "https://github.com/joshuashoemaker/dmein#readme",
+  "devDependencies": {
+    "progress": "^2.0.3"
+  }
+}
