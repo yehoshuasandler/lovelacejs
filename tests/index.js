@@ -2,6 +2,7 @@ import ProgressBar from 'progress'
 
 import tableTests from '../tests/core/tableTests.js'
 import nodeTests from '../tests/core/nodeTests.js'
+import filterNodeTests from '../tests/core/nodes/filterNodeTests.js'
 
 function runTestsAndReturnFailures (tests) {
   const testTotalCount = tests.length
@@ -37,7 +38,8 @@ function init (tests) {
 
 const testsArray = [
   tableTests,
-  nodeTests
+  nodeTests,
+  filterNodeTests
 ]
 
 init (testsArray.flat())
