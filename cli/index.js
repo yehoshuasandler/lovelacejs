@@ -26,7 +26,8 @@ try {
     filterParams: {
       siteName: 'Seewee Road DMS',
       fieldMonitorUserCertificationNumber: '9YW6ZAY'
-    }
+    },
+    type: 'EQUAL'
   })
   console.log(filterNode.tables[0].getRows().length)
   console.log(filterNode.export().length)

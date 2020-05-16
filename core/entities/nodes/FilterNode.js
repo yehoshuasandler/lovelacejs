@@ -22,12 +22,6 @@ class FilterNode extends Node {
   export = () => {
     let rows = this.tables.map(t => t.getRows() ).flat()
     let filters = this._createFilterMethods()
-    for (let key in this.filterParams) {
-      const filterMethod = t => {
-        return t[key] === this.filterParams[key]
-      }
-      filters.push(filterMethod)
-    }
 
     filters.forEach(f => {
       rows = rows.filter(f)
@@ -36,21 +30,29 @@ class FilterNode extends Node {
     return rows
   }
   
-
   _assignProps = props => {
     this.filterParams = props.filterParams || {}
     if (props.type) this.setType(props.type)
   }
 
   _createFilterMethods = () => {
+    const typeValidation = this._validateType(this.type)
+    if (typeValidation.status !== 'OK') throw typeValidation
+
     let filters = []
     for (let key in this.filterParams) {
       let filterMethod = {}
-      if (this.type === filterTypes.EQUAL){
-        filterMethod = t => {
-          return t[key] === this.filterParams[key]
-        }
-      }
+      if (this.type === filterTypes.EQUAL)
+        filterMethod = t => t[key] === this.filterParams[key]
+      else if (this.type === filterTypes.GREATER)
+        filterMethod = t => t[key] > this.filterParams[key]
+      else if (this.type === filterTypes.GREATEREQUAL)
+        filterMethod = t => t[key] >= this.filterParams[key]
+      else if (this.type === filterTypes.LESSER)
+        filterMethod = t => t[key] < this.filterParams[key]
+      else if (this.type === filterTypes.LESSEREQUAL)
+        filterMethod = t => t[key] <= this.filterParams[key]
+
       filters.push(filterMethod)
     }
     return filters
