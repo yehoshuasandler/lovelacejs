@@ -47,19 +47,7 @@ class Node {
     this.type = 'Node'
 
     if (props.tables) {
-      try {
-        const validateTablesResponse = this._validateTables(props.tables)
-        if (validateTablesResponse.status === 'ERR') {
-          throw validateTablesResponse
-        } else {
-          let tables = []
-          if (!Array.isArray(props.tables)) tables = [props.tables]
-          else tables = props.tables
-          this.tables = tables
-        }
-      } catch (err) {
-        throw err
-      }
+      this.importTables(props.tables)
     } else {
       this.tables = []
     }
