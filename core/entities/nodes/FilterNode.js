@@ -1,4 +1,5 @@
 import Node from '../Node.js'
+import filterTypes from '../../constants/filterTypes.js'
 
 class FilterNode extends Node {
   constructor (props) {
@@ -7,16 +8,24 @@ class FilterNode extends Node {
   }
 
   addFilter = params => {
-    const validation = this._validateFilters(params)
-    if (validation.status === 'ERR') throw validation
+    const filterValidation = this._validateFilters(params)
+    if (filterValidation.status === 'ERR') throw filterValidation
     else this.filterParams = {...this.filterParams, ...params}
+  }
+
+  setType = type => {
+    const typeValidation = this._validateType(type)
+    if (typeValidation.status === 'ERR') throw typeValidation
+    else this.type = type
   }
 
   export = () => {
     let rows = this.tables.map(t => t.getRows() ).flat()
-    let filters = []
+    let filters = this._createFilterMethods()
     for (let key in this.filterParams) {
-      const filterMethod = (t) => { return t[key] === this.filterParams[key] }
+      const filterMethod = t => {
+        return t[key] === this.filterParams[key]
+      }
       filters.push(filterMethod)
     }
 
@@ -28,9 +37,23 @@ class FilterNode extends Node {
   }
   
 
-  _assignProps = (props) => {
-    this.type = 'Filter'
-    this.filterParams = props.filterParams || []
+  _assignProps = props => {
+    this.filterParams = props.filterParams || {}
+    if (props.type) this.setType(props.type)
+  }
+
+  _createFilterMethods = () => {
+    let filters = []
+    for (let key in this.filterParams) {
+      let filterMethod = {}
+      if (this.type === filterTypes.EQUAL){
+        filterMethod = t => {
+          return t[key] === this.filterParams[key]
+        }
+      }
+      filters.push(filterMethod)
+    }
+    return filters
   }
 
   _validateFilters = params => {
@@ -45,6 +68,23 @@ class FilterNode extends Node {
     if (typeof params !== 'object') {
       const paramsType = typeof params
       err.error.messages.push(`Filter was of type ${paramsType} should be an object`)
+    }
+
+    if (err.error.messages.length > 0) return err
+    else return { status: 'OK' }
+  }
+
+  _validateType = type => {
+    const err = {
+      status: 'ERR',
+      error: {
+        label: 'Filter Type is not valid',
+        messages: []
+      }
+    }
+
+    if (Object.values(filterTypes).indexOf(type) < 0) {
+      err.error.messages.push(`Type must be one of: ${Object.keys(filterTypes)}`)
     }
 
     if (err.error.messages.length > 0) return err
