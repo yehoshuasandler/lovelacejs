@@ -33,7 +33,7 @@ const equalFilter = () => {
         data: 'row',
         contractor: 'AshBritt'
       },
-      type: 'EQUAL'
+      filterType: 'EQUAL'
     })
   } catch (err) {
     console.log(err)
@@ -79,7 +79,7 @@ const addFilter = () => {
       filterParams: {
         data: 'row',
       },
-      type: 'EQUAL'
+      filterType: 'EQUAL'
     })
   } catch (err) {
     console.log(err)
@@ -189,7 +189,7 @@ const setType = () => {
   }
 
   try {
-    filterNode.setType('EQUAL')
+    filterNode.setFilterType('EQUAL')
   } catch (err) {
     console.log(err)
     return false
@@ -234,7 +234,7 @@ const greaterFilter = () => {
       filterParams: {
         count: 4
       },
-      type: 'GREATER'
+      filterType: 'GREATER'
     })
   } catch (err) {
     console.log(err)
@@ -287,7 +287,7 @@ const greaterEqualFilter = () => {
       filterParams: {
         count: 4
       },
-      type: 'GREATEREQUAL'
+      filterType: 'GREATEREQUAL'
     })
   } catch (err) {
     console.log(err)
@@ -338,7 +338,7 @@ const lesserFilter = () => {
       filterParams: {
         count: 4
       },
-      type: 'LESSER'
+      filterType: 'LESSER'
     })
   } catch (err) {
     console.log(err)
@@ -390,7 +390,7 @@ const lesserEqualFilter = () => {
       filterParams: {
         count: 4
       },
-      type: 'LESSEREQUAL'
+      filterType: 'LESSEREQUAL'
     })
   } catch (err) {
     console.log(err)

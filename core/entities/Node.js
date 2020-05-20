@@ -45,14 +45,10 @@ class Node {
     this.id = props.id
     this.label = props.label
     this.type = 'Node'
-
-    if (props.tables) {
-      this.importTables(props.tables)
-    } else {
-      this.tables = []
-    }
-    
     this.isValid = true
+
+    if (props.tables) this.importTables(props.tables)
+    else this.tables = []
   }
 
   _validateTables = tablesToImport => {

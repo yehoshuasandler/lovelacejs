@@ -13,10 +13,10 @@ class FilterNode extends Node {
     else this.filterParams = {...this.filterParams, ...params}
   }
 
-  setType = type => {
-    const typeValidation = this._validateType(type)
+  setFilterType = filterType => {
+    const typeValidation = this._validateType(filterType)
     if (typeValidation.status === 'ERR') throw typeValidation
-    else this.type = type
+    else this.filterType = filterType
   }
 
   export = () => {
@@ -32,25 +32,25 @@ class FilterNode extends Node {
   
   _assignProps = props => {
     this.filterParams = props.filterParams || {}
-    if (props.type) this.setType(props.type)
+    if (props.filterType) this.setFilterType(props.filterType)
   }
 
   _createFilterMethods = () => {
-    const typeValidation = this._validateType(this.type)
+    const typeValidation = this._validateType(this.filterType)
     if (typeValidation.status !== 'OK') throw typeValidation
 
     let filters = []
     for (let key in this.filterParams) {
       let filterMethod = {}
-      if (this.type === filterTypes.EQUAL)
+      if (this.filterType === filterTypes.EQUAL)
         filterMethod = t => t[key] === this.filterParams[key]
-      else if (this.type === filterTypes.GREATER)
+      else if (this.filterType === filterTypes.GREATER)
         filterMethod = t => t[key] > this.filterParams[key]
-      else if (this.type === filterTypes.GREATEREQUAL)
+      else if (this.filterType === filterTypes.GREATEREQUAL)
         filterMethod = t => t[key] >= this.filterParams[key]
-      else if (this.type === filterTypes.LESSER)
+      else if (this.filterType === filterTypes.LESSER)
         filterMethod = t => t[key] < this.filterParams[key]
-      else if (this.type === filterTypes.LESSEREQUAL)
+      else if (this.filterType === filterTypes.LESSEREQUAL)
         filterMethod = t => t[key] <= this.filterParams[key]
 
       filters.push(filterMethod)
