@@ -1,13 +1,8 @@
 class Table {
   constructor (props) {
     const validatePropsResponse = this._validateConstructionProps(props)
-    if (validatePropsResponse.status === 'ERR') {
-      this.isValid = false
-      throw validatePropsResponse
-    }
-    else {
-      this._assignProps(props)
-    }
+    if (validatePropsResponse.status === 'ERR') throw validatePropsResponse
+    else this._assignProps(props)
   }
 
   getProperties = () => {
@@ -22,14 +17,22 @@ class Table {
 
   getRows = () => this.rows
 
+  setRows = rows => {
+    const rowsValidation = this._validateRows(rows)
+    if (rowsValidation.status === 'ERR') throw rowsValidation  
+
+    if (!Array.isArray(rows)) this.rows = [rows]
+    else this.rows = rows
+  }
+
   _assignProps = props => {
     this.id = props.id
     this.label = props.label
     this.type = 'Table' 
     this.isValid = true
 
-    if (!Array.isArray(props.rows)) this.rows = [props.rows]
-    else this.rows = props.rows
+    if (props.rows) this.setRows(props.rows)
+    else this.rows = []
   }
 
   _validateConstructionProps = props => {
@@ -47,39 +50,34 @@ class Table {
     }
     if (!props.id) err.error.messages.push('No id on creation of Table')
     if (!props.label) err.error.messages.push('No label on creation of Table')
-
-    const validateRowsErrors = this._validateRows(props.rows)
-    if (validateRowsErrors.length > 0) {
-      validateRowsErrors.forEach(e => {
-        err.error.messages.push(e)
-      })
-    }
   
-    if (err.error.messages.length === 0){
-      return { status: 'OK' }
-    } else{
-      return err
-    }
+    if (err.error.messages.length === 0) return { status: 'OK' }
+    else return err
   }
 
   _validateRows = rowsToImport => {
+    const err = {
+      status: 'ERR',
+      error: {
+        label: 'Error Creating Table',
+        messages: []
+      }
+    }
+
     let rows = []
     if (!Array.isArray(rowsToImport)) rows = [rowsToImport]
     else rows = rowsToImport
 
-    const errorMesages = []
-
-    if (rows.length === 0) {
-      errorMesages.push('No Tables imported')
-    }
+    if (rows.length === 0) err.error.messages.push('No Tables imported')
 
     for (let r = 0; r < rows.length; r++) {
       if (typeof rows[r] !== 'object') {
-        errorMesages.push(`row[${r}] is not an object`)
+        err.error.messages.push(`row[${r}] is not an object`)
       }
     }
 
-    return errorMesages
+    if (err.error.messages.length > 0) return err
+    else return { status: 'OK' }
   }
 }
 
