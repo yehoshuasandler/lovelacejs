@@ -20,7 +20,7 @@ class FilterNode extends Node {
   }
 
   export = () => {
-    let rows = this.tables.map(t => t.getRows() ).flat()
+    let rows = this.tables.map(t => t.export() ).flat()
     let filters = this._createFilterMethods()
 
     filters.forEach(f => {

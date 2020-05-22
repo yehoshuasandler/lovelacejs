@@ -15,7 +15,7 @@ class Table {
     }
   }
 
-  getRows = () => this.rows
+  export = () => this.rows
 
   setRows = rows => {
     const rowsValidation = this._validateRows(rows)

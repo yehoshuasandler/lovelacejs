@@ -40,7 +40,7 @@ const getTableRows = () => {
 
   try {
     const table = new Table(input)
-    const tableRows = table.getRows()
+    const tableRows = table.export()
     if (JSON.stringify(tableRows) === JSON.stringify(expectedOutput)) return true
     else return false
   } catch (err) {

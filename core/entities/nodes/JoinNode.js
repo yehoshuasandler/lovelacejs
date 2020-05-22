@@ -8,7 +8,7 @@ class JoinNode extends Node {
 
   export = () => {
     const baseTable = this.tables.find(t => t.label === this.baseTableLabel)
-    const baseTableRows = baseTable.getRows()
+    const baseTableRows = baseTable.export()
     const tablesToJoin = this.tables.filter(t => {
       return t.label !== this.baseTableLabel
     })
@@ -17,7 +17,7 @@ class JoinNode extends Node {
       const foreignTable = tablesToJoin.find(t => {
         return t.label === joinParam.foreignTable
       })
-      const foreignTableRows = foreignTable.getRows()
+      const foreignTableRows = foreignTable.export()
 
       const mergedRows = baseTableRows.map(baseRow => {
         const matchingForeignRow = foreignTableRows.find(foreignRow => {
