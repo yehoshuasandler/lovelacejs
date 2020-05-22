@@ -411,6 +411,64 @@ const lesserEqualFilter = () => {
   }
 }
 
+const getAsTable = () => {
+  const expectedOutput = {
+    id: 'ABC',
+    label: 'Test Node',
+    rows: [
+      { id: 'qwe', count: 4, contractor: 'AshBritt' },
+      { id: 'xyz', count: 2, contractor: 'HeyDay' }
+    ],
+    type: 'Table',
+    isValid: true
+  }
+
+  let table = {}
+  try {
+    table = new Table({
+      id: 'XYZ',
+      label: 'Test Table',
+      rows: [
+        { id: 'abc', count: 5, contractor: 'AshBritt' },
+        { id: 'qwe', count: 4, contractor: 'AshBritt' },
+        { id: 'XYZ', count: 8, contractor: 'AshBritt' },
+        { id: 'xyz', count: 2, contractor: 'HeyDay' },
+      ]
+    })
+  } catch (err) {
+    return false
+  }
+
+  let filterNode = {}
+  try {
+    filterNode = new FilterNode({
+      id: 'ABC',
+      label: 'Test Node',
+      tables: [table],
+      filterParams: {
+        count: 4
+      },
+      filterType: 'LESSEREQUAL'
+    })
+  } catch (err) {
+    console.log(err)
+    return false
+  }
+
+  let filterNodeAsTable = []
+  try {
+    filterNodeAsTable = filterNode.asTable().getProperties()
+  } catch (err) {
+    console.log(err)
+    return false
+  }
+  if (JSON.stringify(filterNodeAsTable) === JSON.stringify(expectedOutput)) {
+    return true
+  } else {
+    return false
+  }
+}
+
 export default [
   { name: 'Entity | FilterNode Equal Filter', test: equalFilter },
   { name: 'Entity | FilterNode GREATER Filter', test: greaterFilter },
@@ -420,4 +478,5 @@ export default [
   { name: 'Entity | FilterNode Add Filter', test: addFilter },
   { name: 'Entity | FilterNode Set Type', test: setType },
   { name: 'Entity | FilterNode Export Without Type Error', test: exportWithoutTypeErrorHandle },
+  { name: 'Entity | FilterNode Export As Table', test: getAsTable },
 ]

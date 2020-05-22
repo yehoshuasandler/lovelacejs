@@ -101,8 +101,21 @@ const importTables = () => {
   }
 }
 
+const failToExport = () => {
+  const expectedOutput = null
+  const node = new Node({
+    id: 'ABC',
+    label: 'Test Node',
+  })
+
+  const nodeAsTable = node.asTable()
+  if (expectedOutput === nodeAsTable) return true
+  else return false
+}
+
 export default [
   { name: 'Entity | Get Node Properties', test: getNodeProperties },
   { name: 'Entity | Create Node Without Tables', test: createNodeWithoutTables },
-  { name: 'Entity | Import Tables to Node', test: importTables }
+  { name: 'Entity | Import Tables to Node', test: importTables },
+  { name: 'Entity | Fail to Export', test: failToExport }
 ]

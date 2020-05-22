@@ -1,3 +1,5 @@
+import Table from './Table.js'
+
 class Node {
   constructor (props) {
     const validatePropsResponse = this._validateConstructionProps(props)
@@ -7,6 +9,19 @@ class Node {
     }
     else {
       this._assignProps(props)
+    }
+  }
+
+  asTable = () => {
+    if (!this.export) return null
+    try {
+      return new Table({
+        id: this.id,
+        label: this.label,
+        rows: this.export()
+      })
+    } catch (err) {
+      throw err
     }
   }
 
