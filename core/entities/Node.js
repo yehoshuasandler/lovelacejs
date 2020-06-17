@@ -4,7 +4,6 @@ class Node {
   constructor (props) {
     const validatePropsResponse = this._validateConstructionProps(props)
     if (validatePropsResponse.status === 'ERR') {
-      this.isValid = false
       throw validatePropsResponse
     }
     else {
