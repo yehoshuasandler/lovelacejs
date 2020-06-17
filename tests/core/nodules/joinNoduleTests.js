@@ -1,4 +1,4 @@
-import JoinNode from '../../../core/entities/nodes/JoinNode.js'
+import JoinNodule from '../../../core/entities/nodules/JoinNodule.js'
 import Table from '../../../core/entities/Table.js'
 
 const joinTables = () => {
@@ -27,7 +27,7 @@ const joinTables = () => {
     { id: '2345676', contractor: 'AshBritt', type: 'lh', lat: 80, long: -41, 'contractors::id': '1WE3V6', 'contractors::name': 'AshBritt', 'contractors::employeeCount': 43, 'contractors::homeState': 'CA' },
   ]
 
-  const joinNode = new JoinNode({
+  const joinNodule = new JoinNodule({
     id: 'QWE',
     label: 'Receipts with Contractors',
     tables: [pickupTable, contractorTable],
@@ -41,9 +41,9 @@ const joinTables = () => {
 
   
 
-  const joinNodeProps = joinNode.export()
+  const joinNoduleProps = joinNodule.export()
 
-  if (JSON.stringify(joinNodeProps) === JSON.stringify(expectedOutput)) return true
+  if (JSON.stringify(joinNoduleProps) === JSON.stringify(expectedOutput)) return true
   else return false
 }
 
@@ -73,21 +73,21 @@ const setJoinBy = () => {
     { id: '2345676', contractor: 'AshBritt', type: 'lh', lat: 80, long: -41, 'contractors::id': '1WE3V6', 'contractors::name': 'AshBritt', 'contractors::employeeCount': 43, 'contractors::homeState': 'CA' },
   ]
 
-  const joinNode = new JoinNode({
+  const joinNodule = new JoinNodule({
     id: 'QWE',
     label: 'Receipts with Contractors',
     tables: [pickupTable, contractorTable]
   })
 
-  joinNode.setJoinBy({
+  joinNodule.setJoinBy({
     baseTableLabel: 'receipts',
     joinParams: [
       { foreignTable: 'contractors', primaryTableKey: 'contractor', matchingKey: 'name' }
     ]
   })
-  const joinNodeProps = joinNode.export()
+  const joinNoduleProps = joinNodule.export()
 
-  if (JSON.stringify(joinNodeProps) === JSON.stringify(expectedOutput)) return true
+  if (JSON.stringify(joinNoduleProps) === JSON.stringify(expectedOutput)) return true
   else return false
 }
 

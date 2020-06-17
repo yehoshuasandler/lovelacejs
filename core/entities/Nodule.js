@@ -1,6 +1,6 @@
 import Table from './Table.js'
 
-class Node {
+class Nodule {
   constructor (props) {
     const validatePropsResponse = this._validateConstructionProps(props)
     if (validatePropsResponse.status === 'ERR') {
@@ -58,7 +58,7 @@ class Node {
   _assignProps = props => {
     this.id = props.id
     this.label = props.label
-    this.type = 'Node'
+    this.type = 'Nodule'
     this.isValid = true
 
     if (props.tables) this.importTables(props.tables)
@@ -114,4 +114,4 @@ class Node {
   }
 }
 
-export default Node
+export default Nodule

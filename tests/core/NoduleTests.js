@@ -1,4 +1,4 @@
-import Node from '../../core/entities/Node.js'
+import Nodule from '../../core/entities/Nodule.js'
 import Table from '../../core/entities/Table.js'
 
 const input = {
@@ -17,7 +17,7 @@ const getNodeProperties = () => {
   const expectedOutput = {
     id: 'ABC',
     label: 'Test Node',
-    type: 'Node',
+    type: 'Nodule',
     tables: [
       {
         id: 'XYZ',
@@ -31,8 +31,8 @@ const getNodeProperties = () => {
   }
 
   try {
-    const node = new Node(input)
-    const nodeProps = node.getProperties()
+    const nodule = new Nodule(input)
+    const nodeProps = nodule.getProperties()
     if (JSON.stringify(nodeProps) == JSON.stringify(expectedOutput)) return true
     else return false
   } catch (err) {
@@ -49,14 +49,14 @@ const createNodeWithoutTables = () => {
   const expectedOutput = {
     id: 'ABC',
     label: 'Test Node',
-    type: 'Node',
+    type: 'Nodule',
     tables: [],
     isValid: true
   }
 
   try {
-    const node = new Node(input)
-    const nodeProps = node.getProperties()
+    const nodule = new Nodule(input)
+    const nodeProps = nodule.getProperties()
     if (JSON.stringify(nodeProps) == JSON.stringify(expectedOutput)) return true
     else return false
   } catch (err) {
@@ -74,7 +74,7 @@ const importTables = () => {
   const expectedOutput = {
     id: 'ABC',
     label: 'Test Node',
-    type: 'Node',
+    type: 'Nodule',
     tables: [{
       id: 'XYZ',
       label: 'Test Table',
@@ -86,12 +86,12 @@ const importTables = () => {
   }
 
   try {
-    const node = new Node({
+    const nodule = new Nodule({
       id: 'ABC',
       label: 'Test Node',
     })
-    node.importTables(table)
-    const nodeProps = node.getProperties()
+    nodule.importTables(table)
+    const nodeProps = nodule.getProperties()
 
     if (JSON.stringify(nodeProps) == JSON.stringify(expectedOutput)) return true
     else return false
@@ -103,19 +103,19 @@ const importTables = () => {
 
 const failToExport = () => {
   const expectedOutput = null
-  const node = new Node({
+  const nodule = new Nodule({
     id: 'ABC',
     label: 'Test Node',
   })
 
-  const nodeAsTable = node.asTable()
+  const nodeAsTable = nodule.asTable()
   if (expectedOutput === nodeAsTable) return true
   else return false
 }
 
 export default [
-  { name: 'Entity | Get Node Properties', test: getNodeProperties },
-  { name: 'Entity | Create Node Without Tables', test: createNodeWithoutTables },
-  { name: 'Entity | Import Tables to Node', test: importTables },
+  { name: 'Entity | Get Nodule Properties', test: getNodeProperties },
+  { name: 'Entity | Create Nodule Without Tables', test: createNodeWithoutTables },
+  { name: 'Entity | Import Tables to Nodule', test: importTables },
   { name: 'Entity | Fail to Export', test: failToExport }
 ]

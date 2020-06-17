@@ -1,6 +1,6 @@
-import Node from '../Node.js'
+import Nodule from '../Nodule.js'
 
-class JoinNode extends Node {
+class JoinNodule extends Nodule {
   constructor (props) {
     super(props)
     this._assignProps(props)
@@ -77,4 +77,4 @@ class JoinNode extends Node {
   }
 }
 
-export default JoinNode
+export default JoinNodule

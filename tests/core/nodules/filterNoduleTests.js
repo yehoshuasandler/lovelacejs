@@ -1,4 +1,4 @@
-import FilterNode from '../../../core/entities/nodes/FilterNode.js'
+import FilterNodule from '../../../core/entities/nodules/FilterNodule.js'
 import Table from '../../../core/entities/Table.js'
 
 const equalFilter = () => {
@@ -23,11 +23,11 @@ const equalFilter = () => {
     return false
   }
 
-  let filterNode = {}
+  let filterNodule = {}
   try {
-    filterNode = new FilterNode({
+    filterNodule = new FilterNodule({
       id: 'ABC',
-      label: 'Test Node',
+      label: 'Test Nodule',
       tables: [table],
       filterParams: {
         data: 'row',
@@ -40,7 +40,7 @@ const equalFilter = () => {
     return false
   }
 
-  const filteredRows = filterNode.export()
+  const filteredRows = filterNodule.export()
   if (JSON.stringify(filteredRows) === JSON.stringify(expectedOutput)) {
     return true
   } else {
@@ -70,11 +70,11 @@ const addFilter = () => {
     return false
   }
 
-  let filterNode = {}
+  let filterNodule = {}
   try {
-    filterNode = new FilterNode({
+    filterNodule = new FilterNodule({
       id: 'ABC',
-      label: 'Test Node',
+      label: 'Test Nodule',
       tables: [table],
       filterParams: {
         data: 'row',
@@ -87,13 +87,13 @@ const addFilter = () => {
   }
 
   try {
-    filterNode.addFilter({ contractor: 'AshBritt' })
+    filterNodule.addFilter({ contractor: 'AshBritt' })
   } catch (err) {
     console.log(err)
     return false
   }
 
-  const filteredRows = filterNode.export()
+  const filteredRows = filterNodule.export()
   if (JSON.stringify(filteredRows) === JSON.stringify(expectedOutput)) {
     return true
   } else {
@@ -123,11 +123,11 @@ const exportWithoutTypeErrorHandle = () => {
     return false
   }
 
-  let filterNode = {}
+  let filterNodule = {}
   try {
-    filterNode = new FilterNode({
+    filterNodule = new FilterNodule({
       id: 'ABC',
-      label: 'Test Node',
+      label: 'Test Nodule',
       tables: [table],
       filterParams: {
         data: 'row',
@@ -140,7 +140,7 @@ const exportWithoutTypeErrorHandle = () => {
   }
 
   try {
-    filterNode.export()
+    filterNodule.export()
   } catch (err) {
     if (JSON.stringify(err) === JSON.stringify(expectedOutput)) {
       return true
@@ -172,11 +172,11 @@ const setType = () => {
     return false
   }
 
-  let filterNode = {}
+  let filterNodule = {}
   try {
-    filterNode = new FilterNode({
+    filterNodule = new FilterNodule({
       id: 'ABC',
-      label: 'Test Node',
+      label: 'Test Nodule',
       tables: [table],
       filterParams: {
         data: 'row',
@@ -189,13 +189,13 @@ const setType = () => {
   }
 
   try {
-    filterNode.setFilterType('EQUAL')
+    filterNodule.setFilterType('EQUAL')
   } catch (err) {
     console.log(err)
     return false
   }
 
-  const filteredRows = filterNode.export()
+  const filteredRows = filterNodule.export()
   if (JSON.stringify(filteredRows) === JSON.stringify(expectedOutput)) {
     return true
   } else {
@@ -225,11 +225,11 @@ const greaterFilter = () => {
     return false
   }
 
-  let filterNode = {}
+  let filterNodule = {}
   try {
-    filterNode = new FilterNode({
+    filterNodule = new FilterNodule({
       id: 'ABC',
-      label: 'Test Node',
+      label: 'Test Nodule',
       tables: [table],
       filterParams: {
         count: 4
@@ -243,7 +243,7 @@ const greaterFilter = () => {
 
   let filteredRows = []
   try {
-    filteredRows = filterNode.export()
+    filteredRows = filterNodule.export()
   } catch (err) {
     console.log(err)
     return false
@@ -278,11 +278,11 @@ const greaterEqualFilter = () => {
     return false
   }
 
-  let filterNode = {}
+  let filterNodule = {}
   try {
-    filterNode = new FilterNode({
+    filterNodule = new FilterNodule({
       id: 'ABC',
-      label: 'Test Node',
+      label: 'Test Nodule',
       tables: [table],
       filterParams: {
         count: 4
@@ -296,7 +296,7 @@ const greaterEqualFilter = () => {
 
   let filteredRows = []
   try {
-    filteredRows = filterNode.export()
+    filteredRows = filterNodule.export()
   } catch (err) {
     console.log(err)
     return false
@@ -329,11 +329,11 @@ const lesserFilter = () => {
     return false
   }
 
-  let filterNode = {}
+  let filterNodule = {}
   try {
-    filterNode = new FilterNode({
+    filterNodule = new FilterNodule({
       id: 'ABC',
-      label: 'Test Node',
+      label: 'Test Nodule',
       tables: [table],
       filterParams: {
         count: 4
@@ -347,7 +347,7 @@ const lesserFilter = () => {
 
   let filteredRows = []
   try {
-    filteredRows = filterNode.export()
+    filteredRows = filterNodule.export()
   } catch (err) {
     console.log(err)
     return false
@@ -381,11 +381,11 @@ const lesserEqualFilter = () => {
     return false
   }
 
-  let filterNode = {}
+  let filterNodule = {}
   try {
-    filterNode = new FilterNode({
+    filterNodule = new FilterNodule({
       id: 'ABC',
-      label: 'Test Node',
+      label: 'Test Nodule',
       tables: [table],
       filterParams: {
         count: 4
@@ -399,7 +399,7 @@ const lesserEqualFilter = () => {
 
   let filteredRows = []
   try {
-    filteredRows = filterNode.export()
+    filteredRows = filterNodule.export()
   } catch (err) {
     console.log(err)
     return false
@@ -414,7 +414,7 @@ const lesserEqualFilter = () => {
 const getAsTable = () => {
   const expectedOutput = {
     id: 'ABC',
-    label: 'Test Node',
+    label: 'Test Nodule',
     rows: [
       { id: 'qwe', count: 4, contractor: 'AshBritt' },
       { id: 'xyz', count: 2, contractor: 'HeyDay' }
@@ -439,11 +439,11 @@ const getAsTable = () => {
     return false
   }
 
-  let filterNode = {}
+  let filterNodule = {}
   try {
-    filterNode = new FilterNode({
+    filterNodule = new FilterNodule({
       id: 'ABC',
-      label: 'Test Node',
+      label: 'Test Nodule',
       tables: [table],
       filterParams: {
         count: 4
@@ -455,14 +455,14 @@ const getAsTable = () => {
     return false
   }
 
-  let filterNodeAsTable = []
+  let filterNoduleAsTable = []
   try {
-    filterNodeAsTable = filterNode.asTable().getProperties()
+    filterNoduleAsTable = filterNodule.asTable().getProperties()
   } catch (err) {
     console.log(err)
     return false
   }
-  if (JSON.stringify(filterNodeAsTable) === JSON.stringify(expectedOutput)) {
+  if (JSON.stringify(filterNoduleAsTable) === JSON.stringify(expectedOutput)) {
     return true
   } else {
     return false
@@ -470,13 +470,13 @@ const getAsTable = () => {
 }
 
 export default [
-  { name: 'Entity | FilterNode Equal Filter', test: equalFilter },
-  { name: 'Entity | FilterNode GREATER Filter', test: greaterFilter },
-  { name: 'Entity | FilterNode GREATEREQUAL Filter', test: greaterEqualFilter },
-  { name: 'Entity | FilterNode LESSER Filter', test: lesserFilter },
-  { name: 'Entity | FilterNode LESSEREQUAL Filter', test: lesserEqualFilter },
-  { name: 'Entity | FilterNode Add Filter', test: addFilter },
-  { name: 'Entity | FilterNode Set Type', test: setType },
-  { name: 'Entity | FilterNode Export Without Type Error', test: exportWithoutTypeErrorHandle },
-  { name: 'Entity | FilterNode Export As Table', test: getAsTable },
+  { name: 'Entity | FilterNodule Equal Filter', test: equalFilter },
+  { name: 'Entity | FilterNodule GREATER Filter', test: greaterFilter },
+  { name: 'Entity | FilterNodule GREATEREQUAL Filter', test: greaterEqualFilter },
+  { name: 'Entity | FilterNodule LESSER Filter', test: lesserFilter },
+  { name: 'Entity | FilterNodule LESSEREQUAL Filter', test: lesserEqualFilter },
+  { name: 'Entity | FilterNodule Add Filter', test: addFilter },
+  { name: 'Entity | FilterNodule Set Type', test: setType },
+  { name: 'Entity | FilterNodule Export Without Type Error', test: exportWithoutTypeErrorHandle },
+  { name: 'Entity | FilterNodule Export As Table', test: getAsTable },
 ]

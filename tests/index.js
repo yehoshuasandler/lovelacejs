@@ -1,10 +1,10 @@
 import ProgressBar from 'progress'
 
 import tableTests from '../tests/core/tableTests.js'
-import nodeTests from '../tests/core/nodeTests.js'
-import filterNodeTests from '../tests/core/nodes/filterNodeTests.js'
-import joinNodeTests from '../tests/core/nodes/joinNodeTests.js'
-import transformNodeTests from '../tests/core/nodes/transformNodeTests.js'
+import noduleTests from '../tests/core/noduleTests.js'
+import filterNoduleTests from '../tests/core/nodules/filterNoduleTests.js'
+import joinNoduleTests from '../tests/core/nodules/joinNoduleTests.js'
+import transformNoduleTests from '../tests/core/nodules/transformNoduleTests.js'
 
 function runTestsAndReturnFailures (tests) {
   const testTotalCount = tests.length
@@ -40,10 +40,10 @@ function init (tests) {
 
 const testsArray = [
   tableTests,
-  nodeTests,
-  filterNodeTests,
-  joinNodeTests,
-  transformNodeTests
+  noduleTests,
+  filterNoduleTests,
+  joinNoduleTests,
+  transformNoduleTests
 ]
 
 init (testsArray.flat())

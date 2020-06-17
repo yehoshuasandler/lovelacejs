@@ -1,6 +1,6 @@
-import Node from '../Node.js'
+import Nodule from '../Nodule.js'
 
-class TransformNode extends Node {
+class TransformNodule extends Nodule {
   constructor (props) {
     super(props)
     this._assignProps(props)
@@ -53,4 +53,4 @@ class TransformNode extends Node {
   }
 }
 
-export default TransformNode
+export default TransformNodule

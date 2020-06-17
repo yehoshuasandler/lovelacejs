@@ -1,7 +1,7 @@
-import Node from '../Node.js'
+import Nodule from '../Nodule.js'
 import filterTypes from '../../constants/filterTypes.js'
 
-class FilterNode extends Node {
+class FilterNodule extends Nodule {
   constructor (props) {
     super (props)
     this._assignProps(props)
@@ -94,4 +94,4 @@ class FilterNode extends Node {
   }
 }
 
-export default FilterNode
+export default FilterNodule

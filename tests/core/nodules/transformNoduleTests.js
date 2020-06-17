@@ -1,5 +1,5 @@
 import Table from '../../../core/entities/Table.js'
-import TransformNode from '../../../core/entities/nodes/TransformNode.js'
+import TransformNodule from '../../../core/entities/nodules/TransformNodule.js'
 
 const transformTable = () => {
   const expectedOutput = [
@@ -26,9 +26,9 @@ const transformTable = () => {
     return false
   }
 
-  let transformNode = {}
+  let transformNodule = {}
   try {  
-    transformNode = new TransformNode({
+    transformNodule = new TransformNodule({
       id: 'ABC',
       label: 'Transform Test',
       tables: [table],
@@ -43,7 +43,7 @@ const transformTable = () => {
     return false
   }
 
-  const transformRows = transformNode.export()
+  const transformRows = transformNodule.export()
   if (JSON.stringify(transformRows) === JSON.stringify(expectedOutput)) return true
   else return false
 }
@@ -73,9 +73,9 @@ const setStructure = () => {
     return false
   }
 
-  let transformNode = {}
+  let transformNodule = {}
   try {  
-    transformNode = new TransformNode({
+    transformNodule = new TransformNodule({
       id: 'ABC',
       label: 'Transform Test',
       tables: [table],
@@ -86,7 +86,7 @@ const setStructure = () => {
   }
 
   try {
-    transformNode.setStructure({
+    transformNodule.setStructure({
       'id': 'identifier',
       'data': 'ticketType',
       'contractor': 'contractor'
@@ -96,12 +96,12 @@ const setStructure = () => {
     return false
   }
 
-  const transformRows = transformNode.export()
+  const transformRows = transformNodule.export()
   if (JSON.stringify(transformRows) === JSON.stringify(expectedOutput)) return true
   else return false
 }
 
 export default [
-  { name: 'Entities | Transform Node Test', test: transformTable },
-  { name: 'Entities | Transform Node Set Structure', test: setStructure }
+  { name: 'Entities | Transform Nodule Test', test: transformTable },
+  { name: 'Entities | Transform Nodule Set Structure', test: setStructure }
 ]
