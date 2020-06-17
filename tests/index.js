@@ -4,6 +4,7 @@ import tableTests from '../tests/core/tableTests.js'
 import nodeTests from '../tests/core/nodeTests.js'
 import filterNodeTests from '../tests/core/nodes/filterNodeTests.js'
 import joinNodeTests from '../tests/core/nodes/joinNodeTests.js'
+import transformNodeTests from '../tests/core/nodes/transformNodeTests.js'
 
 function runTestsAndReturnFailures (tests) {
   const testTotalCount = tests.length
@@ -41,7 +42,8 @@ const testsArray = [
   tableTests,
   nodeTests,
   filterNodeTests,
-  joinNodeTests
+  joinNodeTests,
+  transformNodeTests
 ]
 
 init (testsArray.flat())
