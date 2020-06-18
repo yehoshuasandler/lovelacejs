@@ -1,8 +1,8 @@
 {
   "name": "dmein",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "type": "module",
-  "description": "A web application to migrate data from various sources (i.e. files, DBs, APIs) and create visual reports on them.",
+  "description": "JavaScript Library to easily create dynamic mutations on data.",
   "main": "index.js",
   "directories": {
     "test": "tests"
