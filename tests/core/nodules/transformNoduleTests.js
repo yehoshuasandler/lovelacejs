@@ -1,5 +1,5 @@
-import Table from '../../../core/entities/Table.js'
-import TransformNodule from '../../../core/entities/nodules/TransformNodule.js'
+import Table from '../../../src/entities/Table.js'
+import TransformNodule from '../../../src/entities/nodules/TransformNodule.js'
 
 const transformTable = () => {
   const expectedOutput = [

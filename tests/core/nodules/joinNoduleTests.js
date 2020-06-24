@@ -1,5 +1,5 @@
-import JoinNodule from '../../../core/entities/nodules/JoinNodule.js'
-import Table from '../../../core/entities/Table.js'
+import JoinNodule from '../../../src/entities/nodules/JoinNodule.js'
+import Table from '../../../src/entities/Table.js'
 
 const joinTables = () => {
   const pickupTable = new Table({

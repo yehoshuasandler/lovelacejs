@@ -1,29 +1,20 @@
-import ProgressBar from 'progress'
+// import ProgressBar from 'progress'
 
 import tableTests from '../tests/core/tableTests.js'
-import noduleTests from '../tests/core/noduleTests.js'
+import noduleTests from '../tests/core/NoduleTests.js'
 import filterNoduleTests from '../tests/core/nodules/filterNoduleTests.js'
 import joinNoduleTests from '../tests/core/nodules/joinNoduleTests.js'
 import transformNoduleTests from '../tests/core/nodules/transformNoduleTests.js'
 
 function runTestsAndReturnFailures (tests) {
   const testTotalCount = tests.length
-
-  const testBar = new ProgressBar(
-    `\x1b[36mRunning Tests [:bar] :current/${testTotalCount}`,
-    { total: testTotalCount }
-  )
-
-  let testsFailed = []
+  const testsFailed = []
 
   for (let i = 0; i < testTotalCount; i++) {
     const passedTest = tests[i].test()
-    testBar.tick()
-
     if (!passedTest) testsFailed.push(tests[i].name)
-    
-    if (testBar.complete) return testsFailed
   }
+  return testsFailed
 }
 
 function init (tests) {

@@ -1,5 +1,5 @@
-import Nodule from '../../core/entities/Nodule.js'
-import Table from '../../core/entities/Table.js'
+import Nodule from '../../src/entities/Nodule.js'
+import Table from '../../src/entities/Table.js'
 
 const input = {
   id: 'ABC',
