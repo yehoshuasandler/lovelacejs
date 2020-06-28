@@ -1,6 +1,6 @@
 {
   "name": "dmein",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Dmein is a modern JavaScript Library to create objects that easily mutate data through relationships, filtering, and tranforming the shape of data.",
   "main": "index.js",
   "directories": {
