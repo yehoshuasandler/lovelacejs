@@ -44,13 +44,18 @@ class Nodule {
   }
 
   importTables = tablesToImport => {
-    const validateTablesResponse = this._validateTables(tablesToImport)
+    console.log('Function importTables has been depricated, please use "setTables()"')
+    this.setTables(tablesToImport)
+  }
+
+  setTables = tablesToSet => {
+    const validateTablesResponse = this._validateTables(tablesToSet)
     if (validateTablesResponse.status === 'ERR') {
       throw validateTablesResponse
     } else {
       let tables = []
-      if (!Array.isArray(tablesToImport)) tables = [tablesToImport]
-      else tables = tablesToImport
+      if (!Array.isArray(tablesToSet)) tables = [tablesToSet]
+      else tables = tablesToSet
       this.tables = tables
     }
   }
@@ -61,7 +66,7 @@ class Nodule {
     this.type = 'Nodule'
     this.isValid = true
 
-    if (props.tables) this.importTables(props.tables)
+    if (props.tables) this.setTables(props.tables)
     else this.tables = []
   }
 

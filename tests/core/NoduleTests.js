@@ -113,9 +113,54 @@ const failToExport = () => {
   else return false
 }
 
+const setTables = () => {
+  const initialTable = new Table({
+    id: 'XYZ',
+    label: 'Test Table',
+    rows: [{ id: 'xyz', data: 'lh' }]
+  })
+
+  const overrideTable = new Table({
+    id: 'XYZ',
+    label: 'Test Table',
+    rows: [{ id: 'abc', data: 'row' }]
+  })
+
+  const expectedOutput = {
+    id: 'ABC',
+    label: 'Test Node',
+    type: 'Nodule',
+    tables: [{
+      id: 'XYZ',
+      label: 'Test Table',
+      rows: [{ id: 'abc', data: 'row' }],
+      type: 'Table',
+      isValid: true
+    }],
+    isValid: true
+  }
+
+  try {
+    const nodule = new Nodule({
+      id: 'ABC',
+      label: 'Test Node',
+      tables: initialTable
+    })
+    nodule.setTables(overrideTable)
+    const nodeProps = nodule.getProperties()
+
+    if (JSON.stringify(nodeProps) == JSON.stringify(expectedOutput)) return true
+    else return false
+  } catch (err) {
+    console.log(err)
+    return false
+  }
+}
+
 export default [
   { name: 'Entity | Get Nodule Properties', test: getNodeProperties },
   { name: 'Entity | Create Nodule Without Tables', test: createNodeWithoutTables },
   { name: 'Entity | Import Tables to Nodule', test: importTables },
-  { name: 'Entity | Fail to Export', test: failToExport }
+  { name: 'Entity | Fail to Export', test: failToExport },
+  { name: 'Entity | Nodule setTables', test: setTables }
 ]
