@@ -52,7 +52,7 @@ Your data will be passed in as the rows property as an object. It is besed to pa
 
     asTable() // return the Nodule as an instance of a new Table
 
-    importTables(new Table({
+    setTables(new Table({
       id: 'XYZ',
       label: 'Test Table',
       rows: [{ id: 'abc', data: 'row' }]
