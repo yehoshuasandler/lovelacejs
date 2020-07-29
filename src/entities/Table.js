@@ -10,9 +10,25 @@ class Table {
       id: this.id,
       label: this.label,
       rows: this.rows,
+      headers: this.headers,
       type: this.type,
       isValid: this.isValid
     }
+  }
+
+  get headers () {    
+    const rows = this.rows
+
+    if (!Array.isArray(rows) || rows.length < 1) return []
+
+    const length = rows.length
+    let lengthToSlice = 49
+    if (length < 50) lengthToSlice = length
+    const firstSliceOfRows = rows.slice(0, lengthToSlice)
+    const headersOfSplicedRows = firstSliceOfRows.map(r => Object.keys(r))
+    const flatenedHeaders = headersOfSplicedRows.flat()
+    const uniqueHeaders = Array.from(new Set(flatenedHeaders))
+    return uniqueHeaders
   }
 
   export = () => this.rows

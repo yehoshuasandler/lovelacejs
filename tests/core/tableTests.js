@@ -17,6 +17,7 @@ const getTableProperties = () => {
       { id: '2345676', type: 'row', lat: 54, long: 31 },
       { id: '2345676', type: 'lh', lat: 31, long: -71.34 }
     ],
+    headers: [ "id", "type", "lat", "long" ],
     type: 'Table',
     isValid: true
   }
@@ -115,6 +116,7 @@ const createTableWithEverythingButRows = () => {
     id: 'abc',
     label: 'Test Label',
     rows: [],
+    headers: [],
     type: 'Table',
     isValid: true
   }
@@ -171,13 +173,14 @@ const createTableWithRowsAsNotArray = () => {
     rows: [
       { id: '2345676', type: 'lh', lat: 31, long: -71.34 }
     ],
+    headers: [ 'id', 'type', 'lat', 'long' ],
     type: 'Table',
     isValid: true
   }
 
   try {
     const table = new Table(input)
-    const tableProperties = table.getProperties()
+    const tableProperties = table.getProperties()    
     if (JSON.stringify(tableProperties) === JSON.stringify(expectedOutput)) return true
     else return false
   } catch (err) {
@@ -205,6 +208,7 @@ const setTableRows = () => {
       { id: '2345676', type: 'row', lat: 54, long: 31 },
       { id: '2345676', type: 'lh', lat: 31, long: -71.34 }
     ],
+    headers: [ 'id', 'type', 'lat', 'long' ],
     type: 'Table',
     isValid: true
   }
@@ -221,14 +225,29 @@ const setTableRows = () => {
   }
 }
 
+const getTableHeaders = () => { 
+  const expectedOutput = ["id", "type", "lat", "long"]
+
+  try {
+    const table = new Table(input)
+    const headers = table.headers
+    if (JSON.stringify(headers) === JSON.stringify(expectedOutput)) return true
+    else return false
+  } catch (err) {
+    console.log(err)
+    return false
+  }
+}
+
 export default [
   { name: 'Entity | Get Table Properties', test: getTableProperties },
   { name: 'Entity | Get Table Rows', test: getTableRows },
-  { name: 'Entiry | Table With Invalid Props', test: createTableWithNoProps },
-  { name: 'Entiry | Table With Only Id', test: createTableWithOnlyId },
-  { name: 'Entiry | Table With Only Label', test: createTableWithOnlyLabel },
-  { name: 'Entiry | Table With Everything But Rows', test: createTableWithEverythingButRows },
-  { name: 'Entiry | Table With Invalid Rows', test: createTableWithInvalidRows },
-  { name: 'Entiry | Table With Rows as Not Array', test: createTableWithRowsAsNotArray },
-  { name: 'Entiry | Set Table Rows', test: setTableRows }
+  { name: 'Entity | Table With Invalid Props', test: createTableWithNoProps },
+  { name: 'Entity | Table With Only Id', test: createTableWithOnlyId },
+  { name: 'Entity | Table With Only Label', test: createTableWithOnlyLabel },
+  { name: 'Entity | Table With Everything But Rows', test: createTableWithEverythingButRows },
+  { name: 'Entity | Table With Invalid Rows', test: createTableWithInvalidRows },
+  { name: 'Entity | Table With Rows as Not Array', test: createTableWithRowsAsNotArray },
+  { name: 'Entity | Set Table Rows', test: setTableRows },
+  { name: 'Entity | Table Headers Getter', test: getTableHeaders }
 ]

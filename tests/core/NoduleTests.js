@@ -23,6 +23,7 @@ const getNodeProperties = () => {
         id: 'XYZ',
         label: 'Test Table',
         rows: [{ id: 'abc', data: 'row' }],
+        headers: [ 'id', 'data' ],
         type: 'Table',
         isValid: true
       }
@@ -79,6 +80,7 @@ const importTables = () => {
       id: 'XYZ',
       label: 'Test Table',
       rows: [{ id: 'abc', data: 'row' }],
+      headers: [ 'id', 'data' ],
       type: 'Table',
       isValid: true
     }],
@@ -134,6 +136,7 @@ const setTables = () => {
       id: 'XYZ',
       label: 'Test Table',
       rows: [{ id: 'abc', data: 'row' }],
+      headers: [ 'id', 'data' ],
       type: 'Table',
       isValid: true
     }],

@@ -419,6 +419,7 @@ const getAsTable = () => {
       { id: 'qwe', count: 4, contractor: 'AshBritt' },
       { id: 'xyz', count: 2, contractor: 'HeyDay' }
     ],
+    headers: [ 'id', 'count', 'contractor' ],
     type: 'Table',
     isValid: true
   }
