@@ -1,6 +1,6 @@
 # Dmein
 
-Dmein is a modern JavaScript Library to create objects that easily mutate data through relationships, filtering, and tranforming the shape of data. Designed without dependencies and with modern JavaScript Syntax. Dmein is a tool for robust data manipulation with ease.
+Lovelacejs is a modern JavaScript Library to create objects that easily mutate data through relationships, filtering, and tranforming the shape of data.. Designed without dependencies and with modern JavaScript Syntax. Dmein is a tool for robust data manipulation with ease.
 
 ## Table
 Functionality is rooted in data being constructed as an instance of the `Table` class
