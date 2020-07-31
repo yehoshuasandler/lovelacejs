@@ -1,11 +1,11 @@
-# Dmein
+# Lovelacejs
 
-Lovelacejs is a modern JavaScript Library to create objects that easily mutate data through relationships, filtering, and tranforming the shape of data.. Designed without dependencies and with modern JavaScript Syntax. Dmein is a tool for robust data manipulation with ease.
+Lovelacejs is a modern JavaScript Library to create objects that easily mutate data through relationships, filtering, and tranforming the shape of data.. Designed without dependencies and with modern JavaScript Syntax. Lovelacejs is a tool for robust data manipulation with ease.
 
 ## Table
 Functionality is rooted in data being constructed as an instance of the `Table` class
 
-    import { Table } from 'dmein` 
+    import { Table } from 'lovelacejs` 
 
     const table = new Table({
       id: 'abc',
@@ -32,7 +32,7 @@ Your data will be passed in as the rows property as an object. It is besed to pa
 ## Nodule
 `Nodule`s are classes used to transform `Tables` in various ways. There is a `Nodule` base class, but it has no purpose in the wild by itself. Create an instance of one of its child classes depending on the desired use case.
 
-      import { Nodule } from 'dmein` 
+      import { Nodule } from 'lovelacejs` 
 
       const nodule = new Nodule({
       id: 'ABC',
@@ -61,8 +61,8 @@ Your data will be passed in as the rows property as an object. It is besed to pa
 ## FilterNodule
 For the use case of filtering out only the rows of data that fits the desired credentials. The two distinct properties of the `FilterNodule` are the `filterParams` and `filterType`.
 
-      import { Table } from 'dmein` 
-      import { FilterNodule } from 'dmein` 
+      import { Table } from 'lovelacejs` 
+      import { FilterNodule } from 'lovelacejs` 
 
       const table = new Table({
       id: 'XYZ',
@@ -110,8 +110,8 @@ A `FilterNodule` can take these different filterTypes (where the latter four onl
 ## JoinNodule
 This class' usecase is akin to that of an SQL join. It takes in `Table` instances like any other `Nodule`. With it, there are some extra properties that dictate how the `Nodule` should relate them to one another.
 
-    import { Table } from 'dmein` 
-    import { JoinNodule } from 'dmein`
+    import { Table } from 'lovelacejs` 
+    import { JoinNodule } from 'lovelacejs`
 
     const pickupTable = new Table({
       id: 'abc',
@@ -176,8 +176,8 @@ After the join the column names coming from the foreign `Table` will be altered 
 ## TransformNodule
 The `TransformNodule` class, just as the others, extends from the `Nodule` base class. This usecase however is to mold the shape of data from `Table`s into an entirly new one; renaming columns and/or extracting select data.
 
-    import { Table } from 'dmein`
-    import { TransformNodule } from 'dmein`
+    import { Table } from 'lovelacejs`
+    import { TransformNodule } from 'lovelacejs`
     
     const table = new Table({
       id: 'XYZ',
@@ -240,6 +240,6 @@ Filter types for the `FilterNodule` can be one of only these five string values.
     }
 
 # Notes
-This library is in its early stages, and improvements are to come. The main priority being speed and readability when using the options in these classes. Extra features are not the priority, but will be worked on. Adding features is agains the philosophy of this project however. Dmein is to be a powerful building block to making dynamic and programatic data mutation. It is to be a tool to help craft software, not a wall that gets in the way of work.
+This library is in its early stages, and improvements are to come. The main priority being speed and readability when using the options in these classes. Extra features are not the priority, but will be worked on. Adding features is agains the philosophy of this project however. Lovelacejs is to be a powerful building block to making dynamic and programatic data mutation. It is to be a tool to help craft software, not a wall that gets in the way of work.
 
 If you have any questions or issues please open one up or reach out to me at `joshua@jshoemaker.dev`
