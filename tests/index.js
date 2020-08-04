@@ -5,6 +5,7 @@ import noduleTests from '../tests/core/NoduleTests.js'
 import filterNoduleTests from '../tests/core/nodules/filterNoduleTests.js'
 import joinNoduleTests from '../tests/core/nodules/joinNoduleTests.js'
 import transformNoduleTests from '../tests/core/nodules/transformNoduleTests.js'
+import groupByNoduleTests from '../tests/core/nodules/groupByNoduleTests.js'
 
 function runTestsAndReturnFailures (tests) {
   const testTotalCount = tests.length
@@ -34,7 +35,8 @@ const testsArray = [
   noduleTests,
   filterNoduleTests,
   joinNoduleTests,
-  transformNoduleTests
+  transformNoduleTests,
+  groupByNoduleTests
 ]
 
 init (testsArray.flat())

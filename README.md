@@ -225,6 +225,12 @@ Only the columns specified in the `structure` object will be exported from the `
 
     export() // get the joined data from the Nodule
 
+## GroupByNodule
+
+The `GroupByNodule` class can take in `Table`s and a single value of `groupByValue` to group rows by a table header. On `export()` this will return an object with keys representing an array of objects (or `rows`)
+
+The `asTable()` method is overloaded and actually returns an array of new `Table` instances, operating differently than the `Nodule` base class `asTable()`
+
 ## Constant Values
 
 A set of declared constant variables has been provided for safer typing. Although importing them is not essential, the values they represent are the only options for certain options.
