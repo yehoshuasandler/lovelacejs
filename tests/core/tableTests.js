@@ -1,4 +1,4 @@
-import Table from '../../src/entities/Table.js'
+import Table from '../../src/entities/Table'
 
 const input = {
   id: 'abc',

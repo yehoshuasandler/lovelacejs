@@ -1,5 +1,5 @@
-import FilterNodule from '../../../src/entities/nodules/FilterNodule.js'
-import Table from '../../../src/entities/Table.js'
+import FilterNodule from '../../../src/entities/nodules/FilterNodule'
+import Table from '../../../src/entities/Table'
 
 const equalFilter = () => {
   const expectedOutput = [

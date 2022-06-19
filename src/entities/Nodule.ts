@@ -1,15 +1,29 @@
-import Table from './Table.js'
+import { errType } from '../types/errType'
+import { noduleConstructorProps } from '../types/noduleTypes'
+import { tableProps, tableRows } from '../types/tableTypes'
+import Table from './Table'
 
-class Nodule {
-  constructor (props) {
-    const validatePropsResponse = this._validateConstructionProps(props)
-    if (validatePropsResponse.status === 'ERR') {
-      throw validatePropsResponse
-    }
+abstract class Nodule {
+  id: string
+  label: string
+  type: 'Nodule'
+  isValid: boolean
+  tables: Table[] = []
+
+  constructor (props: noduleConstructorProps) {
+    const validatePropsResponse = this.validateConstructionProps(props)
+    if (validatePropsResponse.status === 'ERR') throw validatePropsResponse
     else {
-      this._assignProps(props)
+      this.id = props.id
+      this.label = props.label
+      this.type = 'Nodule'
+      this.isValid = true
+  
+      if (props.tables) this.setTables(props.tables)
     }
   }
+
+  abstract export () : tableRows
 
   asTable = () => {
     if (!this.export) return null
@@ -25,10 +39,10 @@ class Nodule {
   }
 
   getProperties = () => {
-    let tables = []
+    let tables: tableProps[] = []
     if (!Array.isArray(this.tables)) tables = []
     else if (this.tables.length === 0) tables = []
-    else tables = this.tables.map(t => {
+    else tables = this.tables.map((t: Table) => {
       return t.getProperties()
     })
 
@@ -43,35 +57,20 @@ class Nodule {
     return properties
   }
 
-  importTables = tablesToImport => {
-    console.log('Function importTables has been depricated, please use "setTables()"')
-    this.setTables(tablesToImport)
-  }
-
-  setTables = tablesToSet => {
-    const validateTablesResponse = this._validateTables(tablesToSet)
+  setTables = (tablesToSet: Table[]) => {
+    const validateTablesResponse = this.validateTables(tablesToSet)
     if (validateTablesResponse.status === 'ERR') {
       throw validateTablesResponse
     } else {
-      let tables = []
+      let tables: Table[] = []
       if (!Array.isArray(tablesToSet)) tables = [tablesToSet]
       else tables = tablesToSet
       this.tables = tables
     }
   }
-  
-  _assignProps = props => {
-    this.id = props.id
-    this.label = props.label
-    this.type = 'Nodule'
-    this.isValid = true
 
-    if (props.tables) this.setTables(props.tables)
-    else this.tables = []
-  }
-
-  _validateTables = tablesToImport => {
-    const err = {
+  private validateTables = (tablesToImport: Table[]) => {
+    const err: errType = {
       status: 'ERR',
       error: {
         label: 'Not all imported Tables are valid',
@@ -100,8 +99,8 @@ class Nodule {
     }
   }
 
-  _validateConstructionProps = (props) => {
-    const err = {
+  private validateConstructionProps = (props: noduleConstructorProps) => {
+    const err: errType = {
       status: 'ERR',
       error: {
         label: 'Error Creating Node',

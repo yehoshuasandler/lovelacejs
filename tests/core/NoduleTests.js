@@ -1,5 +1,5 @@
-import Nodule from '../../src/entities/Nodule.js'
-import Table from '../../src/entities/Table.js'
+import Nodule from '../../src/entities/Nodule'
+import Table from '../../src/entities/Table'
 
 const input = {
   id: 'ABC',
@@ -65,44 +65,6 @@ const createNodeWithoutTables = () => {
   }
 }
 
-const importTables = () => {
-  const table = new Table({
-    id: 'XYZ',
-    label: 'Test Table',
-    rows: [{ id: 'abc', data: 'row' }]
-  })
-
-  const expectedOutput = {
-    id: 'ABC',
-    label: 'Test Node',
-    type: 'Nodule',
-    tables: [{
-      id: 'XYZ',
-      label: 'Test Table',
-      rows: [{ id: 'abc', data: 'row' }],
-      headers: [ 'id', 'data' ],
-      type: 'Table',
-      isValid: true
-    }],
-    isValid: true
-  }
-
-  try {
-    const nodule = new Nodule({
-      id: 'ABC',
-      label: 'Test Node',
-    })
-    nodule.importTables(table)
-    const nodeProps = nodule.getProperties()
-
-    if (JSON.stringify(nodeProps) == JSON.stringify(expectedOutput)) return true
-    else return false
-  } catch (err) {
-    console.log(err)
-    return false
-  }
-}
-
 const failToExport = () => {
   const expectedOutput = null
   const nodule = new Nodule({
@@ -163,7 +125,6 @@ const setTables = () => {
 export default [
   { name: 'Entity | Get Nodule Properties', test: getNodeProperties },
   { name: 'Entity | Create Nodule Without Tables', test: createNodeWithoutTables },
-  { name: 'Entity | Import Tables to Nodule', test: importTables },
   { name: 'Entity | Fail to Export', test: failToExport },
   { name: 'Entity | Nodule setTables', test: setTables }
 ]

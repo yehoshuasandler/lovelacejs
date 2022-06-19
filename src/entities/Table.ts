@@ -1,11 +1,27 @@
+import { errType } from "../types/errType"
+import { tableConstructorProps, tableProps, tableRows } from "../types/tableTypes"
+
 class Table {
-  constructor (props) {
-    const validatePropsResponse = this._validateConstructionProps(props)
+  id: string
+  label: string
+  rows: tableRows = []
+  type: 'Table'
+  isValid: boolean
+
+  constructor (props: tableConstructorProps) {
+    const validatePropsResponse = this.validateConstructionProps(props)
     if (validatePropsResponse.status === 'ERR') throw validatePropsResponse
-    else this._assignProps(props)
+    else {
+      this.id = props.id
+      this.label = props.label
+      this.type = 'Table' 
+      this.isValid = true
+
+      if (props.rows) this.setRows(props.rows)
+    }
   }
 
-  getProperties = () => {
+  getProperties = (): tableProps => {
     return {
       id: this.id,
       label: this.label,
@@ -33,26 +49,16 @@ class Table {
 
   export = () => this.rows
 
-  setRows = rows => {
-    const rowsValidation = this._validateRows(rows)
+  setRows = (rows: tableRows) => {
+    const rowsValidation = this.validateRows(rows)
     if (rowsValidation.status === 'ERR') throw rowsValidation  
 
     if (!Array.isArray(rows)) this.rows = [rows]
     else this.rows = rows
   }
 
-  _assignProps = props => {
-    this.id = props.id
-    this.label = props.label
-    this.type = 'Table' 
-    this.isValid = true
-
-    if (props.rows) this.setRows(props.rows)
-    else this.rows = []
-  }
-
-  _validateConstructionProps = props => {
-    const err = {
+  private validateConstructionProps = (props: tableConstructorProps) => {
+    const err: errType = {
       status: 'ERR',
       error: {
         label: 'Error Creating Table',
@@ -71,8 +77,8 @@ class Table {
     else return err
   }
 
-  _validateRows = rowsToImport => {
-    const err = {
+  private validateRows = (rowsToImport: tableRows) => {
+    const err: errType = {
       status: 'ERR',
       error: {
         label: 'Error Creating Table',
