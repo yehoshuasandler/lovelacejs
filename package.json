@@ -1,8 +1,9 @@
 {
   "name": "lovelacejs",
-  "version": "0.2.2",
-  "description": "Lovelace.js is a modern JavaScript Library to create objects that easily mutate data through relationships, filtering, and tranforming the shape of data.",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "Lovelace.js is a library to  easily mutate data through relationships, filtering, and tranforming the shape of data.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "directories": {
     "test": "tests"
   },
