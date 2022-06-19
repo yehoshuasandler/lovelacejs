@@ -1,16 +1,21 @@
-import Nodule from '../Nodule.js'
+import { errType } from '../../types/errType'
+import { transformNoduleConstructionProps, transformStruct } from '../../types/noduleTypes'
+import { tableRow } from '../../types/tableTypes'
+import Nodule from '../Nodule'
 
 class TransformNodule extends Nodule {
-  constructor (props) {
+  structure: transformStruct = {}
+
+  constructor (props: transformNoduleConstructionProps) {
     super(props)
-    this._assignProps(props)
+    if (props.structure) this.setStructure(props.structure)
   }
 
   export = () => {
     const rows = this.tables.map(t => t.export()).flat()
     
     const transformedRows = rows.map(r => {
-      let mapShape = {}
+      let mapShape: tableRow = {}
       for (const [ key, value ] of Object.entries(this.structure)) {
         mapShape[value] = r[key]
       }
@@ -19,18 +24,14 @@ class TransformNodule extends Nodule {
     return transformedRows
   }
 
-  setStructure = struct => {
-    const structureValidation = this._validateStructureProps(struct)
+  setStructure = (struct: transformStruct) => {
+    const structureValidation = this.validateStructureProps(struct)
     if (structureValidation.status === 'ERR') throw structureValidation
     else this.structure = struct
   }
 
-  _assignProps = props => {
-    if (props.structure) this.setStructure(props.structure)
-  }
-
-  _validateStructureProps = struct => {
-    const err = {
+  private validateStructureProps = (struct: transformStruct) => {
+    const err: errType = {
       status: 'ERR',
       error: {
         label: 'Ptructure Parameters are not valid',

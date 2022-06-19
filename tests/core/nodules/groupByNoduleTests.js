@@ -1,5 +1,5 @@
-import GroupByNodule from '../../../src/entities/nodules/GroupByNodule.js'
-import Table from '../../../src/entities/Table.js'
+import GroupByNodule from '../../../src/entities/nodules/GroupByNodule'
+import Table from '../../../src/entities/Table'
 
 const groupByTest = () => {
   const expectedOutput = {
@@ -42,7 +42,7 @@ const groupByTest = () => {
     return false
   }
 
-  const groupedRows = groupByNodule.export()
+  const groupedRows = groupByNodule.exportTables()
   if (JSON.stringify(groupedRows) === JSON.stringify(expectedOutput)) {
     return true
   } else {
@@ -107,7 +107,7 @@ const groupByAsTables = () => {
   }
 
   // make checks here
-  const groupedTables = groupByNodule.asTable()
+  const groupedTables = groupByNodule.asTables()
   const groupedTablesProps = groupedTables.map(t => t.getProperties())
   if (JSON.stringify(groupedTablesProps) === JSON.stringify(expectedOutput)) {
     return true
@@ -116,8 +116,85 @@ const groupByAsTables = () => {
   }
 }
 
+const groupByExportError = () => {
+  let table = {}
+  try {
+    table = new Table({
+      id: 'XYZ',
+      label: 'Test Table',
+      rows: [
+        { id: 'abc', data: 'row', contractor: 'AshBritt' },
+        { id: 'qwe', data: 'lh', contractor: 'AshBritt' },
+      ]
+    })
+  } catch (err) {
+    return false
+  }
+
+  let groupByNodule = {}
+  try {
+    groupByNodule = new GroupByNodule({
+      id: 'ABC',
+      label: 'Test Group',
+      tables: [table],
+      groupByValue: 'contractor'
+    })
+  } catch (err) {
+    console.log(err)
+    return false
+  }
+
+  try {
+    groupByNodule.export()
+    return false
+  } catch (err) {
+    return true
+  }
+}
+
+const groupByAsTableError = () => {
+  let table = {}
+  try {
+    table = new Table({
+      id: 'XYZ',
+      label: 'Test Table',
+      rows: [
+        { id: 'abc', data: 'row', contractor: 'AshBritt' },
+        { id: 'qwe', data: 'lh', contractor: 'AshBritt' },
+        { id: 'XYZ', data: 'row', contractor: 'AshBritt' },
+        { id: 'XYZ', data: 'row', contractor: 'HeyDay' },
+      ]
+    })
+  } catch (err) {
+    return false
+  }
+
+  let groupByNodule = {}
+  try {
+    groupByNodule = new GroupByNodule({
+      id: 'ABC',
+      label: 'Test Group',
+      tables: [table],
+      groupByValue: 'contractor'
+    })
+  } catch (err) {
+    console.log(err)
+    return false
+  }
+
+  try {
+    groupByNodule.asTable()
+    return false
+  } catch (err) {
+    return true
+  }
+}
+
+
 
 export default [
   { name: 'Entity | GroupBy Value', test: groupByTest },
   { name: 'Entity | GroupBy As Table', test: groupByAsTables },
+  { name: 'Entity | GroupBy export() should error out', test: groupByExportError },
+  { name: 'Entity | GroupBy asTable() should error out', test: groupByAsTableError },
 ]

@@ -1,29 +1,37 @@
-import Nodule from '../Nodule.js'
+import { errType } from '../../types/errType'
+import { joinBy, joinNoduleConstructionProps, joinParam } from '../../types/noduleTypes'
+import { tableRow } from '../../types/tableTypes'
+import Nodule from '../Nodule'
 
 class JoinNodule extends Nodule {
-  constructor (props) {
+  baseTableLabel: string = ''
+  joinParams: joinParam[] = []
+
+  constructor (props: joinNoduleConstructionProps) {
     super(props)
-    this._assignProps(props)
+    if (props.joinBy) this.setJoinBy(props.joinBy)
   }
 
   export = () => {
     const baseTable = this.tables.find(t => t.label === this.baseTableLabel)
+    if (!baseTable) return []
+
     const baseTableRows = baseTable.export()
     const tablesToJoin = this.tables.filter(t => {
       return t.label !== this.baseTableLabel
     })
 
     const relatedTables = this.joinParams.map(joinParam => {
-      const foreignTable = tablesToJoin.find(t => {
-        return t.label === joinParam.foreignTable
-      })
+      const foreignTable = tablesToJoin.find(t => t.label === joinParam.foreignTable)
+      if (!foreignTable) return []
+
       const foreignTableRows = foreignTable.export()
 
       const mergedRows = baseTableRows.map(baseRow => {
         const matchingForeignRow = foreignTableRows.find(foreignRow => {
           return baseRow[joinParam.primaryTableKey] === foreignRow[joinParam.matchingKey]
         })
-        let rowToMerge = {}
+        let rowToMerge: tableRow = {}
         for (let key in matchingForeignRow) {
           rowToMerge[`${joinParam.foreignTable}::${key}`] = matchingForeignRow[key]
         }
@@ -36,8 +44,8 @@ class JoinNodule extends Nodule {
     return relatedTables[0]
   }
 
-  setJoinBy = joinBy => {
-    const joinByValidation = this._validateJoinBy(joinBy)
+  setJoinBy = (joinBy: joinBy) => {
+    const joinByValidation = this.validateJoinBy(joinBy)
     if (joinByValidation.status === 'ERR') throw joinByValidation
     else {
       this.baseTableLabel = joinBy.baseTableLabel
@@ -45,12 +53,8 @@ class JoinNodule extends Nodule {
     }
   }
 
-  _assignProps = props => {
-    if (props.joinBy) this.setJoinBy(props.joinBy)
-  }
-
-  _validateJoinBy = joinBy => {
-    const err = {
+  private validateJoinBy = (joinBy: joinBy) => {
+    const err: errType = {
       status: 'ERR',
       error: {
         label: 'JoinBy Parameters are not valid',

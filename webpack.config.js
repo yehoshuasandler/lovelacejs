@@ -5,7 +5,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname),
     filename: 'index.js',
-    library: 'dmein',
+    library: 'lovelace',
     libraryTarget: 'umd',
     globalObject: 'this',
     umdNamedDefine: true
