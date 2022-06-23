@@ -1,3 +1,4 @@
+import filterTypes from "../constants/filterTypes"
 import Table from "../entities/Table"
 import { tableRow } from "./tableTypes"
 
@@ -8,7 +9,9 @@ type noduleConstructorProps = {
   tables?: Table[]
 }
 
-type filterType = 'EQUAL' | 'GREATER' | 'GREATEREQUAL' | 'LESSER' | 'LESSEREQUAL' 
+type filterKeys = keyof typeof filterTypes
+type filterValues = typeof filterTypes[filterKeys]
+type filterType = filterValues
 type filterParams = Record<string, string | number>
 type filterNoduleConstructionProps = noduleConstructorProps & {filterType: filterType} & {filterParams: filterParams}
 
