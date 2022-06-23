@@ -1,4 +1,5 @@
 import filterTypes from "../constants/filterTypes"
+import { sortValueTypes, sortDirections } from "../constants/sortTypes"
 import Table from "../entities/Table"
 import { tableRow } from "./tableTypes"
 
@@ -26,6 +27,17 @@ type groupByNoduleConstructorProps = noduleConstructorProps & { groupByValue: st
 
 type groupedByRows = Record<string, tableRow[]>
 
+type sortDirectionKeys = keyof typeof sortDirections
+type sortDirectionValues = typeof sortDirections[sortDirectionKeys]
+type sortDirection = sortDirectionValues
+
+type sortValueTypeKeys = keyof typeof  sortValueTypes
+type sortValueTypeValues = typeof sortValueTypes[sortValueTypeKeys]
+type sortValueType = sortValueTypeValues
+type sortKey = string
+
+type sortNoduleConstructorProps = noduleConstructorProps & { sortDirection: sortDirection, sortValueType: sortValueType, sortKey: sortKey }
+
 export {
   noduleConstructorProps,
   filterNoduleConstructionProps,
@@ -37,5 +49,9 @@ export {
   transformStruct,
   transformNoduleConstructionProps,
   groupByNoduleConstructorProps,
-  groupedByRows
+  groupedByRows,
+  sortDirection,
+  sortValueType,
+  sortKey,
+  sortNoduleConstructorProps,
 }

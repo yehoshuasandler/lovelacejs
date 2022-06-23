@@ -6,6 +6,7 @@ import filterNoduleTests from './core/nodules/filterNoduleTests.js'
 import joinNoduleTests from './core/nodules/joinNoduleTests.js'
 import transformNoduleTests from './core/nodules/transformNoduleTests.js'
 import groupByNoduleTests from './core/nodules/groupByNoduleTests.js'
+import sortNoduleTests from './core/nodules/sortNoduleTests.js'
 
 type unitTest = { name: string, test: Function }
 
@@ -38,7 +39,8 @@ const testsArray = [
   filterNoduleTests,
   joinNoduleTests,
   transformNoduleTests,
-  groupByNoduleTests
+  groupByNoduleTests,
+  sortNoduleTests,
 ]
 
 init (testsArray.flat())

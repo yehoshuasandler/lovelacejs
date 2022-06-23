@@ -34,7 +34,7 @@ class TransformNodule extends Nodule {
     const err: errType = {
       status: 'ERR',
       error: {
-        label: 'Ptructure Parameters are not valid',
+        label: 'Structure Parameters are not valid',
         messages: []
       }
     }
