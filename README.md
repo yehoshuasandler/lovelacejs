@@ -225,11 +225,128 @@ Only the columns specified in the `structure` object will be exported from the `
 
     export() // get the joined data from the Nodule
 
-## GroupByNodule
+## GroupByNodule (Experimental)
 
-The `GroupByNodule` class can take in `Table`s and a single value of `groupByValue` to group rows by a table header. On `export()` this will return an object with keys representing an array of objects (or `rows`)
+<small>This Nodule is experimental and subject to frequent changes.</small>
 
-The `asTable()` method is overloaded and actually returns an array of new `Table` instances, operating differently than the `Nodule` base class `asTable()`
+The `GroupByNodule` is a sub-class from `Nodule` and can take in `Table`s and a single string value of `groupByValue` to group rows by a table header. Lets use this `Table` and this `Nodule` as our example input data:
+
+```
+const table = new Table({
+  id: 'XYZ',
+  label: 'Test Table',
+  rows: [
+    { id: 'abc', data: 'row', contractor: 'AshBritt' },
+    { id: 'qwe', data: 'lh', contractor: 'AshBritt' },
+    { id: 'XYZ', data: 'row', contractor: 'AshBritt' },
+    { id: 'XYZ', data: 'row', contractor: 'HeyDay' },
+  ]
+})
+
+const groupByNodule = new GroupByNodule({
+  id: 'ABC',
+  label: 'Test Group By',
+  tables: [table],
+  groupByValue: 'contractor'
+})
+```
+
+### GroupByNodule Methods
+
+The `Nodule` base class declares an `abstract export () : tableRows`, as well as a base method `asTable (): Table`, yet the `GroupByNodule` subclass does not implement these methods the same as other derivatives of `Nodule`. 
+
+In this subclass, there is no return for these methods and an error is thrown. The way data is mutated is a fundamental deviation from other nodules. The `GroupByNodule` is for categorically separating data out, therefore a single set of `rows` or a singular `Table` is not a sufficient return type.
+
+Instead, either groups of `rows` or multiple `Table`s are exported. Two new methods are implemented in this subclass to function in a similar way.
+
+
+#### exportRowGroups()
+```
+// TS Types
+type tableRow = Record<string, unknown>
+type groupedByRows = Record<string, tableRow[]>
+exportRowGroups (): groupedByRows
+
+// JS implementation
+const groupedRows = groupByNodule.exportRowGroups()
+
+/* 
+expected output based on example above:
+{
+  AshBritt: [
+    { id: 'abc', data: 'row', contractor: 'AshBritt' },
+    { id: 'qwe', data: 'lh', contractor: 'AshBritt' },
+    { id: 'XYZ', data: 'row', contractor: 'AshBritt' }
+  ],
+  HeyDay: [
+    { id: 'XYZ', data: 'row', contractor: 'HeyDay' }
+  ]
+}
+*/
+
+```
+
+#### asTables()
+```
+// TS Type
+asTables = (): Table[]
+
+// JS implementation
+const groupedTables = groupByNodule.asTables()
+
+/*
+expected output based on example above:
+
+    {
+      id: 'ABC-AshBritt',
+      label: 'Test Group by AshBritt',
+      rows: [
+        { id: 'abc', data: 'row', contractor: 'AshBritt' },
+        { id: 'qwe', data: 'lh', contractor: 'AshBritt' },
+        { id: 'XYZ', data: 'row', contractor: 'AshBritt' }
+      ],
+      headers: [ 'id', 'data', 'contractor' ],
+      type: 'Table',
+      isValid: true
+    },
+    {
+      id: 'ABC-HeyDay',
+      label: 'Test Group by HeyDay',
+      rows: [
+        { id: 'XYZ', data: 'row', contractor: 'HeyDay' }
+      ],
+      headers: [ 'id', 'data', 'contractor' ],
+      type: 'Table',
+      isValid: true
+    }
+  ]
+*/
+
+```
+
+## SortNodule (Experimental)
+<small>This Nodule is experimental and subject to frequent changes.</small>
+
+The `SortNodule` does one simple task, sort rows based off on particular property/header.
+
+This nodule takes in three new props on top of the properties of the base class:
+
+`sortValueType: 'ALPHABETIC' | 'NUMERIC'` is used to determine if the sorting is based on number or letters.
+
+`sortDirection: 'ASCENDING' | 'DESCENDING'` is used to determine the order of the sorting.
+
+`sortKey: string` is which property/header tha the sorting will be performed on.
+
+```
+const sortNodule = new SortNodule({
+  id: 'ABC',
+  label: 'Test Nodule',
+  tables: [table],
+  sortValueType: 'ALPHABETIC',
+  sortDirection: 'DESCENDING',
+  sortKey: 'contractor'
+})
+```
 
 ## Constant Values
 
@@ -237,15 +354,32 @@ A set of declared constant variables has been provided for safer typing. Althoug
 
 Filter types for the `FilterNodule` can be one of only these five string values.
 
-    {
-      EQUAL: 'EQUAL',
-      GREATER: 'GREATER',
-      GREATEREQUAL: 'GREATEREQUAL',
-      LESSER: 'LESSER',
-      LESSEREQUAL: 'LESSEREQUAL',
-    }
+```
+const filterTypes = {
+  EQUAL: 'EQUAL',
+  GREATER: 'GREATER',
+  GREATEREQUAL: 'GREATEREQUAL',
+  LESSER: 'LESSER',
+  LESSEREQUAL: 'LESSEREQUAL',
+}
+
+```
+
+`SortNodule` constants are as follows:
+
+```
+const sortDirections = {
+  ASCENDING: 'ASCENDING',
+  DESCENDING: 'DESCENDING'
+}
+
+const sortValueTypes = {
+  NUMERIC: 'NUMERIC',
+  ALPHABETIC: 'ALPHABETIC'
+}
+```
 
 # Notes
-This library is in its early stages, and improvements are to come. The main priority being speed and readability when using the options in these classes. Extra features are not the priority, but will be worked on. Adding features is agains the philosophy of this project however. Lovelacejs is to be a powerful building block to making dynamic and programatic data mutation. It is to be a tool to help craft software, not a wall that gets in the way of work.
+This library is in its early stages, and improvements are to come. The main priority currently is readability. Experimental features, which are labeled as such, will likely change functionality and naming.
 
-If you have any questions or issues please open one up or reach out to me at `joshua@jshoemaker.dev`
+Goals moving forward are to finalize the experimental features and try to move the core of the code base to WASM with Go and a JS/TS api.
