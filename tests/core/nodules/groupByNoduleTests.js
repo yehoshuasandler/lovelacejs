@@ -42,7 +42,7 @@ const groupByTest = () => {
     return false
   }
 
-  const groupedRows = groupByNodule.exportTables()
+  const groupedRows = groupByNodule.exportRowGroups()
   if (JSON.stringify(groupedRows) === JSON.stringify(expectedOutput)) {
     return true
   } else {

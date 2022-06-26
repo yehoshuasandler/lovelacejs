@@ -7,7 +7,7 @@ declare class GroupByNodule extends Nodule {
     asTables: () => Table[];
     asTable: () => never;
     export: () => never;
-    exportTables: () => groupedByRows;
+    exportRowGroups: () => groupedByRows;
     setGroupByValue: (value: string) => void;
     private validateGroupByValue;
 }

@@ -5,7 +5,7 @@ declare class FilterNodule extends Nodule {
     filterParams: filterParams;
     constructor(props: filterNoduleConstructionProps);
     addFilter: (params: filterParams) => void;
-    setFilterType: (filterType: filterType) => void;
+    setFilterType: (filterType: string) => void;
     export: () => import("../../types/tableTypes").tableRow[];
     private createFilterMethods;
     private validateFilters;

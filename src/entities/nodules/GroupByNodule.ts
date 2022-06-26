@@ -13,7 +13,7 @@ class GroupByNodule extends Nodule {
   }
 
   asTables = (): Table[] => {
-    const exports = this.exportTables()
+    const exports = this.exportRowGroups()
     const tables = []
     for (let key in exports) {
       const newTableProps: tableConstructorProps = {
@@ -35,7 +35,7 @@ class GroupByNodule extends Nodule {
     throw new Error('"export()" can not be called by GroupByNodule. Call "exportTables()"')
   }
 
-  exportTables = (): groupedByRows => {
+  exportRowGroups = (): groupedByRows => {
     const { groupByValue } = this
     const rows = this.tables.map(t => t.export() ).flat()
     const groupedByRows = rows.reduce((groups: groupedByRows, r) => {
